@@ -1,18 +1,32 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 
-const Music = ( { selectedMusic, setSelectedMusic, music, Musiclist, setMusiclist}) => {
+const Music = ( {isPlaying, setIsPlaying, audioRef, selectedMusic, setSelectedMusic, music, Musiclist, setMusiclist}) => {
 
-    const handleSelectSong = () => {
-        //let selectedSongIndex = Musiclist.findIndex(music => music.id === music.id);
-        //let tempMusicList = [...Musiclist];
-        //console.log(selectedSongIndex);
-        //tempMusicList[selectedSongIndex].active = true 
-        //console.log(tempMusicList);
-       setSelectedMusic(music);
+    const handleSelectSong = async () => {
+
+        audioRef.current.pause()
+        setIsPlaying(!isPlaying);
+        
+        let selectedSongIndex = Musiclist.findIndex( (item) => item === music);
+        let tempMusicList = [...Musiclist];
+
+        for (let index = 0; index < tempMusicList.length; index++) {
+            tempMusicList[index].active = false;
+        } 
+
+        tempMusicList[selectedSongIndex].active = true;
+        setSelectedMusic(music);
+        setMusiclist(tempMusicList);
+
+        
+        await audioRef.current.play();
+        setIsPlaying(true);
+
+        console.log(audioRef);
     }
 
     return (
-        <div className="music" onClick={handleSelectSong} id={music.id}>
+        <div className={`music ${music.active? "selected-song" : ""} `} onClick={handleSelectSong} >
         <div className="image-container">
             <img className="music-image" src={music.cover} alt="music cover picture"/>
         </div>

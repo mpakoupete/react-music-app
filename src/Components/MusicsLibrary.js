@@ -3,7 +3,7 @@ import Music from './Music';
 
 
 
-const MusicsLibrary = ({selectedMusic, setSelectedMusic, Musiclist, setMusiclist, isLibraryOpen}) => {
+const MusicsLibrary = ({isPlaying, setIsPlaying, audioRef, selectedMusic, setSelectedMusic, Musiclist, setMusiclist, isLibraryOpen}) => {
 
 
     return (
@@ -11,7 +11,7 @@ const MusicsLibrary = ({selectedMusic, setSelectedMusic, Musiclist, setMusiclist
         <div className={`musics-main-container ${ isLibraryOpen ? "library-opened" : "" } `} >
             <h4>Library</h4>
             <div className="musics-container">
-            { Musiclist.map( (music) =>  <Music selectedMusic={selectedMusic} setSelectedMusic={setSelectedMusic} music={music} Musiclist={Musiclist}  />  ) }
+            { Musiclist.map( (music) =>  <Music isPlaying={isPlaying} setIsPlaying={setIsPlaying} audioRef={audioRef} selectedMusic={selectedMusic} setSelectedMusic={setSelectedMusic} music={music} Musiclist={Musiclist} setMusiclist={setMusiclist}  />  ) }
            </div>
         </div>
     );

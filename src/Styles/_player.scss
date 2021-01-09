@@ -13,6 +13,15 @@
     overflow: hidden;
 }
 
+.picture {
+    transition: 0.5s;
+}
+
+.move-player {
+    transform: translate(3rem);
+    transition: .6s;
+}
+
 .music-picture {
     border-radius: 50%;
     min-width: 5vw;
@@ -28,6 +37,7 @@
     flex-direction: row;
     justify-items: center;
     align-items: justify;
+    transition: 0.5s;
 
     input {
         min-width : 80%;
@@ -35,7 +45,7 @@
         padding: 1rem 0;
     }
     p {
-        padding: 1rem 0;
+        padding: 1rem 0.5rem;
     }
 }
 
@@ -46,6 +56,7 @@
     justify-content : space-between;
     align-items : center;
     margin: 2rem;
+    transition: 0.5s;
 
     .back-btn {
         cursor: pointer;

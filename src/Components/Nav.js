@@ -6,7 +6,7 @@ const Nav = ({isLibraryOpen, handleClickOnLibrary}) => {
 
     return (
         <div className="nav">
-        <div className="header">
+        <div className={`header  ${isLibraryOpen? "move-player" : ""}`}>
             <div className="logo">
                 <h1>Waves</h1>
             </div>

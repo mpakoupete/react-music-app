@@ -1,44 +1,47 @@
 import React, {useRef, useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faPause, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons'
-import Musicdata from '../Data/Musicdata';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
 
-const Player = ({selectedMusic, setSelectedMusic, Musiclist, setMusiclist}) => {
+const Player = ({isLibraryOpen, isPlaying, setIsPlaying, audioRef, audioTime, setAudioTime, selectedMusic, setSelectedMusic, Musiclist, setMusiclist}) => {
 
-    const audioRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [audioTime, setAudioTime] = useState({currentTime: null, duration : null});
-
-    const handleClickPlay = () => {
+const handleClickPlay = async () => {
         if (!isPlaying) {
-            audioRef.current.play();
+            await audioRef.current.play();
             setIsPlaying(!isPlaying);
         } else {
-            audioRef.current.pause();
-            setIsPlaying(!isPlaying);
+            await audioRef.current.pause();
+           setIsPlaying(!isPlaying);
         }
         console.log(audioRef);
     }
 
-    const handleTimeReccord = () => {
-        const currentTime = audioRef.current.currentTime;
-        const duration = audioRef.current.duration;
-        setAudioTime({...audioTime, currentTime, duration });
+    const handleClickNext = () => {
+
     }
 
-    let selectedSongIndex = Musiclist.findIndex(music => music.id === music.id);
+    const handleClickPrevious = () => {
+
+    }
+const getTimeFormat = (time) => {
+    var timestamp = time;
+    var hours = Math.floor(timestamp / 60 / 60);
+    var minutes = Math.floor(timestamp / 60) - (hours * 60);
+    var seconds = Math.floor(timestamp % 60);
+    var formatted = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+    return formatted;
+}
 
     return (
         <div className="Player">
-            <div className="picture">
+            <div className={`picture  ${isLibraryOpen? "move-player" : ""}`}>
             <img className="music-picture" src={selectedMusic.cover} alt="music picture"/>
             </div>
-            <div className="music-bar-controler">
-                <p>Start time</p>
-                <input  max={audioTime.duration}  value={audioTime.currentTime} className="input" type="range" name="" id=""/>
-                <p>End time</p>
+            <div className={`music-bar-controler  ${isLibraryOpen? "move-player" : ""}`}>
+                <p>{getTimeFormat(audioTime.currentTime)}</p>
+                <input  max={audioTime.duration} onC value={audioTime.currentTime} className="input" type="range" name="" id=""/>
+                <p>{getTimeFormat(audioTime.duration)}</p>
             </div>
-            <div className="music-controler-btn">
+            <div className={`music-controler-btn  ${isLibraryOpen? "move-player" : ""}`}>
                 <div className="back-btn">
                 <FontAwesomeIcon icon={faStepBackward} size="2x"/> 
                 </div>
@@ -49,7 +52,6 @@ const Player = ({selectedMusic, setSelectedMusic, Musiclist, setMusiclist}) => {
                 <FontAwesomeIcon icon={faStepForward} size="2x"/>
                 </div>
             </div>
-            <audio onTimeUpdate={handleTimeReccord} ref={audioRef} src={selectedMusic.audio}></audio>
         </div>
     )
 }
