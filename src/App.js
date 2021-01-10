@@ -7,17 +7,22 @@ import Musicdata from './Data/Musicdata';
 
 function App() {
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
-  const [Musiclist, setMusiclist] = useState(Musicdata());
-  const [selectedMusic, setSelectedMusic] = useState(Musiclist[0]);
-  const audioRef = useRef(null);
-  const [audioTime, setAudioTime] = useState({currentTime: 0, duration : null});
+  /* States */
+  const [isPlaying, setIsPlaying] = useState(false); //used in Player to change Play/Pause Button
+  const [isLibraryOpen, setIsLibraryOpen] = useState(false); //used to style and create CSS annimation  
+  const [Musiclist, setMusiclist] = useState(Musicdata()); // imported list of Music coming from ./Data / Can be improved by using API to request data and save it in this State
+  const [selectedMusic, setSelectedMusic] = useState(Musiclist[0]); // Used to update the music selected by User, either by choosing in Library or by clicking on Next
+  const [audioTime, setAudioTime] = useState({currentTime: 0, duration : 0}); // used to show on Screen the minutation
 
+  const audioRef = useRef(null);        // A React refecence to Audio
+
+
+  /* Function to Store the state of Library : Opened or not ? */
   const handleClickOnLibrary = () => {
       setIsLibraryOpen(!isLibraryOpen);
   }
 
+  /* Function to get the current minutation of the Audio playing and store it in State AudioTime */
   const handleTimeReccord = () => {
     const currentTime = audioRef.current.currentTime;
     const duration = audioRef.current.duration;
