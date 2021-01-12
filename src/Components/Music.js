@@ -20,12 +20,12 @@ const Music = ( {isPlaying, setIsPlaying, audioRef, selectedMusic, setSelectedMu
 
         tempMusicList[selectedSongIndex].active = true;
         
-        setSelectedMusic(music);
+        await setSelectedMusic(music);
         setMusiclist(tempMusicList);
 
-        await audioRef.current.play();  // We Play the Song
+        audioRef.current.play();  // We Play the Song
         setIsPlaying(true);
-
+ 
         console.log(audioRef);
     }
     
@@ -33,12 +33,10 @@ const Music = ( {isPlaying, setIsPlaying, audioRef, selectedMusic, setSelectedMu
     return (
         // here we Want to style differently the Music that has been selected with the className "selected-song"
         <div className={`music ${music.active? "selected-song" : ""} `} onClick={handleSelectSong} >
-        <div className="image-container">
             <img className="music-image" src={music.cover} alt="music cover picture"/>
-        </div>
         <div className="music-description">
             <h3>{music.name}</h3>
-            <p>{music.artist}</p>
+            <h4>{music.artist}</h4>
         </div>
     </div>
     );

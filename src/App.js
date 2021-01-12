@@ -12,7 +12,7 @@ function App() {
   const [isLibraryOpen, setIsLibraryOpen] = useState(false); //used to style and create CSS annimation  
   const [Musiclist, setMusiclist] = useState(Musicdata()); // imported list of Music coming from ./Data / Can be improved by using API to request data and save it in this State
   const [selectedMusic, setSelectedMusic] = useState(Musiclist[0]); // Used to update the music selected by User, either by choosing in Library or by clicking on Next
-  const [audioTime, setAudioTime] = useState({currentTime: 0, duration : 0}); // used to show on Screen the minutation
+  const [audioTime, setAudioTime] = useState({currentTime: null, duration : null}); // used to show on Screen the minutation
 
   const audioRef = useRef(null);        // A React refecence to Audio
 

@@ -5,16 +5,13 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons'
 const Nav = ({isLibraryOpen, handleClickOnLibrary}) => {
 
     return (
-        <div className="nav">
-        <div className={`header  ${isLibraryOpen? "move-player" : ""}`}>
-            <div className="logo">
-                <h1>Waves</h1>
-            </div>
-            <div onClick={handleClickOnLibrary} className={`library-btn ${isLibraryOpen? "change-color" :"" }`}>
-                <h2>Library</h2> <FontAwesomeIcon icon={faMusic} size="2x" />
-            </div>
-        </div>
-        </div>
+        <nav className={`nav  ${isLibraryOpen? "library-showed-hide-logo move-player" : ""}`}>
+            <h1 className="logo">Waves</h1>
+            <button onClick={handleClickOnLibrary} className={`library-btn ${isLibraryOpen? "library-showed-up" :"" }`}>
+                Library
+                <FontAwesomeIcon icon={faMusic} />
+            </button>
+        </nav>
     )
 }
 
