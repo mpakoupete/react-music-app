@@ -1,55 +1,43 @@
-.nav {
-    height: 5vh;
-    width: 45vw;
-    position: fixed;
-    top: 0;
-    margin: auto;
-    left: 0;
-    right: 0;
-}
-
-.header {
-    margin-top: 0.75rem;
+nav {
+    min-height: 10vh;
     display: flex;
-    min-width: 50%;
-    width: 100%;
+    justify-content: space-around ;
     align-items: center;
-    justify-content: space-between;
-    transition: 0.5s;
+    transition: all .75s ease;
+    position: relative;
 
-}
-
-.library-btn {
-    padding: 0.2rem 0.3rem;
-    display: flex;
-    border: 0.2rem solid black;
-    background: rgb(238, 245, 244);
-    cursor: pointer;
-    transition: .5s;
-
-    h2 {
-        font-size: 1.5rem;
+    h1:hover {
+      cursor: pointer;
     }
 
-    &:hover {
-        transition: .5s;
-        transform: scale(.9);
-        border: 0.2rem solid rgb(50, 59, 61);
-        border-radius: 3%;
-        background: rgb(64, 67, 68);          
+    button {
+        padding: .5rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        border: 2px solid rgb(65, 65, 65);
+        transition: all 0.3s ease;
+            
+        &:hover {
+            background: rgb(65, 65, 65) ; 
+            color: white;        
+        }
     }
 }
 
-
-.change-color {
-    color : white;
-    background : black;
+.library-showed-up {
+  background: rgb(65, 65, 65);
+  color: white;
 }
 
-.logo {
-    cursor: pointer;
+.library-showed-hide-logo {
+  @media screen and (max-width: 768px) {
     h1 {
-        font-family: 'Redressed', cursive, 'sans-serif';
+      opacity: 0;
     }
-    
+    z-index: 10;
+  }
 }
+
+
+

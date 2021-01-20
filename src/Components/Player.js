@@ -15,7 +15,7 @@ const handleClickPlay = async () => {
         console.log(audioRef);
     }
 
-    const handleClickNext = () => {
+    const handleClickNext = async () => {
         let selectedSongIndex = Musiclist.findIndex( (item) => item.active === true)
         console.log(selectedSongIndex);
 
@@ -26,10 +26,12 @@ const handleClickPlay = async () => {
         }
         tempMusicList[(selectedSongIndex + 1) % tempMusicList.length].active = true;
         setMusiclist(tempMusicList);
-        setSelectedMusic(Musiclist[(selectedSongIndex + 1) % tempMusicList.length]);
+        await setSelectedMusic(Musiclist[(selectedSongIndex + 1) % tempMusicList.length]);
+        audioRef.current.play()
+        setIsPlaying(true);
     }
 
-    const handleClickPrevious = () => {
+    const handleClickPrevious = async () => {
         let selectedSongIndex = Musiclist.findIndex( (item) => item.active === true)
         console.log(selectedSongIndex);
 
@@ -44,7 +46,9 @@ const handleClickPlay = async () => {
         let index = (selectedSongIndex - 1) % tempMusicList.length;
         tempMusicList[index].active = true;
         setMusiclist(tempMusicList);
-        setSelectedMusic(Musiclist[index]);
+        await setSelectedMusic(Musiclist[index]);
+        audioRef.current.play()
+        setIsPlaying(true);
     }
 
     const handleScrollMusic = (e) => {
@@ -73,17 +77,15 @@ const handleClickPlay = async () => {
         return formatted;
     }
 
-    return (
-        <div className="Player">
-            <div className={`picture  ${isLibraryOpen? "move-player" : ""}`}>
-            <img className="music-picture" src={selectedMusic.cover} alt="music picture"/>
+    return ( 
+        <div className={`Player  ${isLibraryOpen? "move-player" : ""}`}>
+            <img className={`${isPlaying? "rotate-picture" : ""}`} src={selectedMusic.cover} alt="music picture"/>
+            <div className="music-bar-controler">
+                <p>{getTimeFormat(audioTime.currentTime) || 0}</p>
+                <input  max={audioTime.duration || 0} onChange={handleScrollMusic} value={audioTime.currentTime} className="input" type="range" name="" id=""/>
+                <p>{audioTime.currentTime ? getTimeFormat(audioTime.duration) : "00:00"}</p>
             </div>
-            <div className={`music-bar-controler  ${isLibraryOpen? "move-player" : ""}`}>
-                <p>{getTimeFormat(audioTime.currentTime)}</p>
-                <input  max={audioTime.duration} onChange={handleScrollMusic} value={audioTime.currentTime} className="input" type="range" name="" id=""/>
-                <p>{getTimeFormat(audioTime.duration)}</p>
-            </div>
-            <div className={`music-controler-btn  ${isLibraryOpen? "move-player" : ""}`}>
+            <div className="music-controler-btn">
                 <div className="back-btn">
                 <FontAwesomeIcon onClick={handleClickPrevious} icon={faStepBackward} size="2x"/> 
                 </div>
